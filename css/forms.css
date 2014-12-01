@@ -1,0 +1,107 @@
+#login-form, #register-form{
+	background-color: rgba(255, 255, 255, 0.8);
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 10%;
+	border-radius: 5px;
+}
+
+#register-form{
+	width:310px;
+	height:400px;
+}
+
+#login-form{
+	width:310px;
+	height:250px;
+}
+
+.login_form_title, .register_form_title{
+	margin-left: 60px;
+	font-size:20px;
+}
+
+
+/* This is a weird name to give, but i could come up with anything else, its used to link from register to login and same way around. */
+.clickhere_register{
+	margin-left:auto;
+	margin-right: auto;
+	font-size:13px;
+	width:230px;
+}
+
+.clickhere_login{
+	margin-right: auto;
+	margin-left: auto;
+	font-size:13px;
+	width:240px;
+}
+
+.form_input{
+	padding: 7px;
+	margin-left: 60px;
+	margin-top: 20px;
+	background:#EBE2E2;
+	border: 1px solid #E1D0D0;
+	color:#4E3541!important;
+}
+
+.form_input:focus{
+	background: #DDE1DD;
+	border: 1px solid #BFADAD;
+}
+
+.form_button{
+	padding:7px;
+	border-radius: 4px;
+	border: 1px solid #E1D0D0;
+	margin-left: 60px;
+	margin-top: 20px;
+}
+
+
+/* Everything for the image upload page, including textfields and buttons. */
+.image_upload_button{
+	padding:7px;
+	border-radius: 4px;
+	border: 1px solid #E1D0D0;
+}
+
+.image_upload_icon{
+	margin-bottom: -10px;
+}
+
+.image_upload_input{
+	padding: 7px;
+	background: #E1D0D0;
+	color: #4E3541!important;
+	border: 1px solid #E1D0D0;
+}
+
+.image_upload_input:focus{
+	background: #DDE1DD;
+	border: 1px solid #BFADAD;
+}
+
+div.fileinputs{
+	position: relative;
+	width: 300px;
+
+}
+
+div.fakefile{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	z-index: 1;
+}
+
+input.file{
+	position: relative;
+	text-align: right;
+	-moz-opacity :0;
+	filet:alpha(opacity: 0);
+	opacity: 0;
+	z-index: 2;
+}
+

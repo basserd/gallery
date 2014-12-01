@@ -1,0 +1,20 @@
+#content-background{
+	background-color: rgba(255, 255, 255, 0.7);
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 5%;
+	border-radius: 5px;
+	width:100%;
+	height:auto;
+}
+
+.module-section{
+	height:200px;
+	width:100%;
+	margin:0px;
+	padding:5px;
+}
+
+.module-title{
+	font-size:30px;
+}
