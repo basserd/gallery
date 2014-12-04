@@ -127,21 +127,36 @@ class User extends Connection{
 		$this->db = $this->conn->db;
 	}
 
-	public function changeEmail($emai_new, $id){
-		$emailCheck = 'SELECT email FROM user WHERE email = :email';
-		$stmt = $this->db->prepare($emailCheck);
-		$stmt->bindParam(':email', $email, PDO::PARAM_STR);
-		$count = $stmt->rowCount();
-		if($stmt->execute()){
-			$count = $stmt->rowCount();
-			if($count != 0){
-				array_push($errors, "Email-adress is already been used.");
-			}
-		}
+	public function profileChange($id, $displayname_new){
+		//$update_profile = 'UPDATE user SET displayname="'.$displayname_new.'" AND bio="'.$bio_new.'" WHERE id='.$id;
+		$update_profile = 'UPDATE user SET displayname=:displayname_new WHERE id=:id';
+		$stmt = $this->db->prepare($update_profile);
 
-		if(count($errors) == 0){
+
+		$stmt->bindParam(':displayname_new', $displayname_new, PDO::PARAM_STR);
+		//$stmt->bindParam(':bio_new', $bio_new, PDO::PARAM_STR);
+		$stmt->bindParam(':id', $id, PDO::PARAM_INT);
+		
+		echo $update_profile;
+
+		if($stmt->execute()){
+			return true;
+		}else{
 		}
-	}	
+	}
+
+	public function profile_picChange($id, $profile_pic_new){
+		$query = 'UPDATE user SET profile_pic=:profile_pic_new WHERE id=:id';
+		$stmt = $this->db->prepare($query);
+		$stmt->bindParam(':profile_pic_new', $profile_pic_new, PDO::PARAM_STR);
+		$stmt->bindParam(':id', $id, PDO::PARAM_INT);
+
+		if($stmt->execute()){
+			return true;
+		}else{
+			return false;
+		}
+	}
 
 	public function emailChange($email_new, $id){
 		$query = 'UPDATE user SET email=:email WHERE id=:id';
@@ -171,7 +186,7 @@ class User extends Connection{
 		}
 	}
 
-	public function settingsChange($id, $image_name){
+	public function backgroundChange($id, $image_name){
 		$query = 'UPDATE user SET background=:background WHERE id=:id';
 
 		$stmt = $this->db->prepare($query);
@@ -281,6 +296,8 @@ class User extends Connection{
 			$this->email = $userdetails['email'];
 			$this->background = $userdetails['background'];
 			$this->password = $userdetails['password'];
+			$this->profilepic = $userdetails['profile_picture'];
+			$this->bio = $userdetails['bio'];
 			return $userdetails;
 		}else{
 			return false;
@@ -301,6 +318,14 @@ class User extends Connection{
 
 	public function getBackground(){
 		return $this->background;
+	}
+
+	public function getProfilePic(){
+		return $this->profilepic;
+	}
+
+	public function getBio(){
+		return $this->bio;
 	}
 
 	public function Register($username, $displayname, $email, $password, $passwordconfirm){

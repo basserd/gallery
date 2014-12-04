@@ -12,7 +12,7 @@
 	if(isset($_POST['upload_image'])){
 		if(isset($_FILES['fupload'])){
 			if(preg_match('/[.](jpg)|(gif)$/', $_FILES['fupload']['name'])){
-				$filename = $_FILES['fupload']['name'];
+				$filename = $username .'_'. $_FILES['fupload']['name'];
 				$source = $_FILES['fupload']['tmp_name'];
 				$target = $path_to_image_directory . $filename;
 

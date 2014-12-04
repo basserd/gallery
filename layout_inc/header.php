@@ -11,13 +11,14 @@
 		<!--<script src="js/main.js"></script>-->
 		<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 		<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+		<script src="js/expandthumb.js"></script>
 		<!--<script src="js/background.js"></script>-->
 	</head>
 	<body>
 		<div id="container">
 			<div id="header">
 				<div id="header-content">
-					<div class="header-logo">Gallery</div>
+					<a href="admin_panel.php"><div class="header-logo">Gallery</div></a>
 					<div id="user-status-div">
 						<div class="user-status-content">
 							<?php

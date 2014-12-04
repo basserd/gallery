@@ -15,6 +15,8 @@
 			$email = $user->getEmail();
 			$displayname = $user->getDisplayName();
 			$background = $user->getBackground();
+			$profile_pic = $user->getProfilePic();
+			$bio = $user->getBio();
 		}else{
 			echo "false";
 		}

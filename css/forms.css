@@ -38,23 +38,31 @@
 }
 
 .form_input{
-	padding: 7px;
 	margin-left: 60px;
 	margin-top: 20px;
+}
+
+
+input[type="text"], input[type="email"], input[type="password"], textarea{
 	background:#EBE2E2;
 	border: 1px solid #E1D0D0;
 	color:#4E3541!important;
+	padding: 5px;
+	border-radius:4px;
 }
 
-.form_input:focus{
+input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus{
 	background: #DDE1DD;
 	border: 1px solid #BFADAD;
 }
 
-.form_button{
+input[type="submit"]{
 	padding:7px;
 	border-radius: 4px;
 	border: 1px solid #E1D0D0;
+}
+
+.form_button{
 	margin-left: 60px;
 	margin-top: 20px;
 }

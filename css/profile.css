@@ -7,43 +7,59 @@
 	width:100%;
 }
 
-#profile_div{
-	width:100%;
-	height:500px;
+/* Class tab_title is used for every tab, Its the title. */
+.tab_title{
+	font-size:20px; 
+	width:200px; 
+	height:40px;
+}
+
+.update_button{
+
+}
+
+/* Profile_div is the container for all of the profile settings, Everything will be placed in this div. */
+#profile_div{ 
+	width:100%; 
+	height:500px; 
 	background-color: rgba(255, 255, 255, 0.7);
 }
 
-#profile_header{
-	width:100%;
-	height:10%;
+/* Div where the title will be placed in. */
+#profile_header{ 
+	width:100%; 
+	height:10%; 
 	background-color : rgba(36, 8,  8, 0.7);
 }
 
 .profile_header_title{
-	font-size: 30px;
-	color: #ECBFBF;
-	margin-left: 15px;
+	font-size: 30px; 
+	color: #ECBFBF; 
+	margin-left: 15px; 
 	margin-top: 3px;
 }
 
+/* Div where the settings_div will be placed in, This div floats right. */
 #profile_content{
-	float:right;
-	width:70%;
+	float:right; 
+	width:70%; 
 	height:500px;
 }
 
+/* Navigation Div, This div floats left, and the navigation_item's are placed in it */
 #profile_navigation{
-	float:left;
-	width:30%;
-	height:90%;
+	float:left; 
+	width:30%; 
+	height:90%; 
 	background-color: rgba(255, 255, 255, 0.7);
 }
 
+/* Followig classes will be placed in the Profile_navigation Div. */
 .navigation_item{
-	float:left;
-	height:50px;
-	width:100%;
-	background:#ffffff;
+	float:left; 
+	height:50px; 
+	width:100%; 
+	background:#ffffff; 
 	border: 1px solid #E1D0D0;
 	border-radius: 6px;
 }
@@ -61,3 +77,24 @@
 	margin-right: 8px;
 }
 
+/* Div where email change will be placed. */
+/* Div where the settings options will be placed in. */
+#background_div, #email_div, #password_div, #view_profile_div, #edit_profile_div{
+	width:80%; 
+	margin-right:auto; 
+	margin-left: auto; 
+	height:90%;
+}
+
+/* Classes for the ChangeBackground Tab. */	
+.current_background{
+	width:auto; 
+	height:auto; 
+	margin-left: auto; 
+	margin-right: auto;
+}
+
+.bio_textarea{
+	width:250px;
+	height:140px;
+}
