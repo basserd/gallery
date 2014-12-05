@@ -14,10 +14,16 @@ if($_GET['action'] == ''){
 
 ?>
 
+<script type="text/javascript">	
+	$( document ).ready(function() {
+    	$("#full-size-image").hide();
+	});
+</script>
+
 <div id="profile_div">
 	<?php
 		echo '<div id="full-size-image">';
-			echo '<img src="media/database_images/profile_image/full-size/'. $profile_pic . '" onclick="profileImage()" width="700"/>"';
+			echo '<img src="media/database_images/profile_image/full-size/'. $profile_pic . '" onclick="hideprofileImage()" width="700"/>';
 		echo '</div>';
 	?>
 	<div id="profile_header">
@@ -56,12 +62,12 @@ if($_GET['action'] == ''){
 			if($_GET['action'] == 'profile'){
 				?>	
 				<script type="text/javascript">	
-					$( document ).ready(function() {
-    					$("#full-size-image").hide();
-					});
+					function showprofileImage(){
+    					$("#full-size-image").show();
+    				}
 
-					function profileImage(){
-    					$("#full-size-image").toggle();
+    				function hideprofileImage(){
+    					$("#full-size-image").hide();
     				}
 				</script>
 
@@ -74,7 +80,7 @@ if($_GET['action'] == ''){
 					echo '</div>';
 					echo $displayname.'<br/><br/>';
 					echo '<div id="thumb_image">';
-						echo '<img src="media/database_images/profile_image/thumb/'. $profile_pic .'" onclick="profileImage()"/></br></br>';
+						echo '<img src="media/database_images/profile_image/thumb/'. $profile_pic .'" onclick="showprofileImage()"/></br></br>';
 					echo '</div>';	
 					echo $bio;
 				echo '</div>';
