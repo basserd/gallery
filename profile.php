@@ -15,6 +15,11 @@ if($_GET['action'] == ''){
 ?>
 
 <div id="profile_div">
+	<?php
+		echo '<div id="full-size-image">';
+			echo '<img src="media/database_images/profile_image/full-size/'. $profile_pic . '" onclick="profileImage()" width="700"/>"';
+		echo '</div>';
+	?>
 	<div id="profile_header">
 		<div class="profile_header_title"><?php echo $username ?></div>
 	</div>
@@ -47,22 +52,30 @@ if($_GET['action'] == ''){
 		
 
 		<?php
-		/*<script type="text/javascript">
-			function expandProfilePic(){
-				var expandedProfilePic = "<?php echo '<img src='media/database_images/profile_image/full-size/' . $profile_pic .  ' ' ?>";
-				return expandProfilePic;
-			}
-		</script>*/
-
 			// Get for profile.
 			if($_GET['action'] == 'profile'){
+				?>	
+				<script type="text/javascript">	
+					$( document ).ready(function() {
+    					$("#full-size-image").hide();
+					});
+
+					function profileImage(){
+    					$("#full-size-image").toggle();
+    				}
+				</script>
+
+				<?php
+
 				echo '<div id="view_profile_div">';
 				echo '<br/>';	
 					echo '<div class="tab_title">';
 						echo 'Profile';
 					echo '</div>';
 					echo $displayname.'<br/><br/>';
-					echo '<img src="media/database_images/profile_image/thumb/'. $profile_pic .'" onclick="expandProfilePic()"/></br></br>';
+					echo '<div id="thumb_image">';
+						echo '<img src="media/database_images/profile_image/thumb/'. $profile_pic .'" onclick="profileImage()"/></br></br>';
+					echo '</div>';	
 					echo $bio;
 				echo '</div>';
 			}
