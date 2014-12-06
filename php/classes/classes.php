@@ -34,6 +34,19 @@ class Image extends Connection{
 		}
 	}
 
+	public function deleteImage($imageId){
+		$query = 'DELETE FROM image WHERE id=:id';
+		$stmt = $this->db->prepare($query);
+
+		$stmt->bindParam(':id', $imageId, PDO::PARAM_INT);
+
+		if($stmt->execute()){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
 	public function showFullSize($userid, $id){
 		$errors = array();
 
@@ -48,16 +61,17 @@ class Image extends Connection{
 				$images = array();
 
 				while($row = $stmt->fetch()){
-					$images[] = array('id' => $row['id'], 'userid' => $row['userid'], 'image' => $row['image'], 'title' => $row['title']);
+					$images[] = array('id' => $row['id'], 'userid' => $row['userid'], 'image' => $row['image'], 'title' => $row['title'], 'description' => $row['description']);
 				}
 				foreach($images as $image){
 					echo '<div class="full-image-title">'. $image['title']. '</div></br>';
-					echo '<img src="media/database_images/full-size/'. $image['image']. '" class="image_full"';
+					echo '<div class="full-image-management"><a href="image_edit.php?id='.$image['id'].'"><img src="media/icons/edit64-icon.png" width="30"></a><a href="image_delete.php?id='.$image['id'].'"><img src="media/icons/delete64-icon.png" width="23" style="margin-left:10px;"></a></div>';
+					echo '<img src="media/database_images/full-size/'. $image['image']. '" class="image_full" </br></br>';
+					echo '<div class="full-image-description">' . $image['description'] . '</div>';
+
 				}
-				
 			}
 		}
-
 	}
 
 	public function showThumbs($userid){
@@ -96,17 +110,18 @@ class Image extends Connection{
 		}
 	}
 
-	public function imagetodb($title, $image_name, $userid){
+	public function imagetodb($title, $description, $image_name, $userid){
 		$errors = array();
 		
 
 		if(count($errors) == 0){
-			$query = 'INSERT INTO images(id, userid, image, title)VALUES(null, :userid, :image, :title)';
+			$query = 'INSERT INTO images(id, userid, image, title, description)VALUES(null, :userid, :image, :title, :description)';
 
 			$stmt = $this->db->prepare($query);
 			$stmt->bindParam(':userid', $userid, PDO::PARAM_INT);
 			$stmt->bindParam(':image', $image_name, PDO::PARAM_STR);
 			$stmt->bindParam(':title', $title, PDO::PARAM_STR);
+			$stmt->bindParam(':description', $description, PDO::PARAM_STR);
 
 			if($stmt->execute()){
 				echo "";

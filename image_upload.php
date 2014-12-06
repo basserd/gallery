@@ -18,13 +18,14 @@
 
 				move_uploaded_file($source, $target);
 				$title = $_POST['title'];
+				$description = $_POST['description'];
 				$userid = $id;
 				$image_name = $filename;
 
 				$checkforimagename = $image->checkforimagename($image_name);
 
 				if(($checkforimagename) == true){
-					$todb = $image->imagetodb($title, $image_name, $userid);
+					$todb = $image->imagetodb($title, $description, $image_name, $userid);
 					createThumbnail($filename);
 				}else{
 					array_push($errors, "Image name already exists.");
@@ -47,7 +48,8 @@
 	</script>
 
 	<form enctype="multipart/form-data" action="" method="post">
-		Title : <input text="text" placeholder="Paardjes" class="form_input" name="title"/> <br/><br/><br/>
+		Title : <input type="text" placeholder="Paardjes" class="form_input" name="title"/> <br/><br/>
+		Description : <textarea name="description"></textarea><br/><br/>
 		<input type="file"  name="fupload" data-buttonText="Find file"/>
 		<input type="submit" name="upload_image" class="image_upload_button" value="upload"/><br/>
 	</form>

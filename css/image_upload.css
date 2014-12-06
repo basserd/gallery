@@ -8,7 +8,7 @@
 	height:300px;
 }
 
-#image_upload_background, #image_overview_background{
+#image_upload_background, #image_overview_background, #image_delete_background{
 	background-color: rgba(255, 255, 255, 0.7);
 	margin-left: auto;
 	margin-right: auto;
@@ -38,8 +38,24 @@
 .full-image-title{
 	font-size:30px;
 	padding:10px;
-	width:auto;
+	width:85%;
 	height:auto;
-	margin-right:auto;
+	float:left;
+}
+
+.full-image-description{
+	font-size: 16px;
+	padding: 10px;
+	width: auto;
+	height: auto;
 	margin-left: auto;
+	margin-right: auto;
+}
+
+.full-image-management{
+	width:10%;
+	padding:10px;
+	float:right;
+	height:auto;
+	margin-top: -20px;
 }
