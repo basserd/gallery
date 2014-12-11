@@ -12,29 +12,43 @@
 
 		if(isset($_GET['id'])){
 			$imageId = $_GET['id'];
-			echo '<form action="" method="post">';
-				echo 'Are you sure about deleting this image</br></br>';
-				echo '<input type="submit" name="delete_sure" value="Yes"> ';
-				echo '<input type="submit" name="delete_not_sure" value="No">';
-			echo '</form>';
-			if(isset($_POST['delete_sure'])){
-				$deleteImage = $image->deleteImage($imageId);
-				if(($deleteImage) != false){
-					echo 'Image deleted, You will be automatically send back to Thumbs';
-					header('Refresh: 3;url=image_overview.php');
-				}else{
-					echo 'Image not deleted, There went something wrong </br></br>';
-					echo $imageId;
-				}
+
+			$selectImage = $image->selectImage($imageId);
+			if($selectImage == false)
+				$getimagename = $image->returnImageNamebyId();
 			}
-			if(isset($_POST['delete_not_sure'])){
-				header('Location: image_overview.php');
+			if($getimagename == false){
+
+			}
+				echo 'The image your searching for does not exist';
+			}else{
+				if(isset($_POST['delete_not_sure'])){
+					header('Location: image_overview.php');
+				}
+
+				if(isset($_POST['delete_sure'])){
+					$delete_image_db = $image->deleteImage($imageId);
+					if($delete_image_db == false){
+						echo 'Image not deleted, There went something wrong </br></br>';
+					}else{
+						unlink('media/database_images/full-size/'. $getimagename .'');
+						unlink('media/database_images/thumb/'. $getimagename . '');
+						echo $getimagename . '<br/><br/>';
+
+						echo 'Image deleted from DB.';
+						header('Refresh: 3;url=image_overview.php');
+					}
+				}else{
+					echo '<form action="" method="post">';
+					echo 'Are you sure about deleting this image</br></br>';
+					echo '<input type="submit" name="delete_sure" value="Yes"> ';
+					echo '<input type="submit" name="delete_not_sure" value="No">';
+					echo '</form>';
+				}
 			}
 		}else{
 			header('Location: image_overview.php');
 		}
-
-		//
 	?>
 </div>
 

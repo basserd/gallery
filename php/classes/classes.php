@@ -11,10 +11,12 @@ class Connection{
 
 class Image extends Connection{
 	private $conn;
-
+ 	public $counter = 0;
 	function __construct(){
 		$this->conn = new Connection("localhost", "root", "", "gallery");
 		$this->db = $this->conn->db;
+
+
 	}
 
 	// To check for already existing image.
@@ -34,18 +36,105 @@ class Image extends Connection{
 		}
 	}
 
-	public function deleteImage($imageId){
-		$query = 'DELETE FROM image WHERE id=:id';
-		$stmt = $this->db->prepare($query);
+	/*public function selectAllByUsername($username){
+		$getid_query = 'SELECT * FROM user WHERE username = :username';
+		$stmt = $this->db->prepare($getid_query);
+		$stmt->bindParam(':username', $_SESSION['session_username'], PDO::PARAM_STR);
+		if($stmt->execute()){
+			$userdetails = $stmt->fetch(PDO::FETCH_ASSOC);
+			$this->id = $userdetails['id'];
+			$this->displayname = $userdetails['displayname'];
+			$this->email = $userdetails['email'];
+			$this->background = $userdetails['background'];
+			$this->password = $userdetails['password'];
+			$this->profilepic = $userdetails['profile_picture'];
+			$this->bio = $userdetails['bio'];
+			return $userdetails;
+		}else{
+			return false;
+		}
+	}*/
+ 
+ 	/* Still working on this */
 
+/* 	
+	public function selectAllbyImageId($imageId){
+		$query = 'SELECT * FROM images WHERe id=:id';
+		$stmt = $this->db->prepare($query);
 		$stmt->bindParam(':id', $imageId, PDO::PARAM_INT);
 
+		if($stmt->execute()){
+			if($stmt->rowCount() > 0){
+				$imageDetails = $stmt->fetch(PDO::FETCH_ASSOC);
+				$this->id = $userdetails['id'];
+				$this->image = $userdetails['displayname'];
+				$this->title = $userdetails['email'];
+				$this->description = $userdetails['background'];
+				return $imageDetails;
+			}else{
+				return false;
+			}
+		}else{
+			return false;
+		}
+	}
+ */
+
+	public function deleteImage($imageId){
+		$deleteQuery = "DELETE FROM `gallery` . `images` WHERE `images`.`id`=:id";
+		$stmt = $this->db->prepare($deleteQuery);
+		$stmt->bindParam(':id' , $imageId, PDO::PARAM_INT);
 		if($stmt->execute()){
 			return true;
 		}else{
 			return false;
 		}
 	}
+	
+	public function selectImage($imageId){
+		$FunctionErrors = array();
+		
+		// Query to get imagename, before its deleted, We need imagename due to removing image from webserver.
+		$selectQuery = 'SELECT image FROM images WHERE id=:id';
+		$stmt = $this->db->prepare($selectQuery);
+		$stmt->bindParam(':id', $imageId, PDO::PARAM_INT);
+		if($stmt->execute()){
+			echo '';
+			if($stmt->rowCount() > 0){
+				$imagename = $stmt->fetch(PDO::FETCH_ASSOC);
+				$this->image_name = $imagename['image'];
+				return $imagename;
+
+				echo 'Row count is more than 0 :) (selectQuery)<br/><br/>';
+			}else{
+				array_push($FunctionErrors, "Couldn't find image name. (selectQuery)<br/>");
+			}
+		}
+		
+		// To check if its really deleted.
+		$countQuery = 'SELECT * FROM images WHERE id=:image_name';
+		$countStmt = $this->db->prepare($countQuery);
+		$countStmt->bindParam(':image_name', $imagename, PDO::PARAM_STR);
+		if($countStmt->execute()){
+			if($countStmt->rowCount() == 0){
+				echo '';
+			}else{
+				array_push($FunctionErrors, "Image not deleted, Image still exists in the DB. <br/>");
+				//echo $imageId;
+			}	
+		}
+
+		if(count($FunctionErrors) != 0){
+			return false;
+		}else{
+			return true;	
+		}
+	}
+
+	public function returnImageNamebyId(){
+		return $this->image_name;
+	}
+
 
 	public function showFullSize($userid, $id){
 		$errors = array();
@@ -68,7 +157,6 @@ class Image extends Connection{
 					echo '<div class="full-image-management"><a href="image_edit.php?id='.$image['id'].'"><img src="media/icons/edit64-icon.png" width="30"></a><a href="image_delete.php?id='.$image['id'].'"><img src="media/icons/delete64-icon.png" width="23" style="margin-left:10px;"></a></div>';
 					echo '<img src="media/database_images/full-size/'. $image['image']. '" class="image_full" </br></br>';
 					echo '<div class="full-image-description">' . $image['description'] . '</div>';
-
 				}
 			}
 		}
@@ -76,6 +164,8 @@ class Image extends Connection{
 
 	public function showThumbs($userid){
 		$errors = array();
+		$active = array();
+
 		$teller = 0;
 
 		$query = 'SELECT * FROM images WHERE userid = :userid';
@@ -84,11 +174,17 @@ class Image extends Connection{
 		$stmt->bindParam(':userid', $userid, PDO::PARAM_INT);
 
 		if($stmt->execute()){
+
 			if($stmt->rowCount() > 0){
+
+				array_push($active, "active");
+
 				$images = array();
+				
 
 				while($row = $stmt->fetch()){
 					$images[] = array('id' => $row['id'], 'userid' => $row['userid'], 'image' => $row['image'], 'title' => $row['title']);
+					
 				}
 
 				// Loop wich will make the structure for the images.
@@ -107,6 +203,11 @@ class Image extends Connection{
 			}
 		}else{
 			echo "Stmt not executed;";
+		}
+
+		if(count($active) == 0){
+			echo 'Nothing uploaded.<br/><br/>';
+			echo '<a href="image_upload.php">Upload some pictures...</a>';
 		}
 	}
 

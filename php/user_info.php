@@ -8,6 +8,7 @@
 		$username = $_SESSION['session_username'];
 
 		$user = new User();
+		$image_class = new Image();
 
 		$getdetails = $user->selectAllByUsername($username);
 		if($getdetails != false){
